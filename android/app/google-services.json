@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "685583234612",
+    "project_id": "bringr-c710c",
+    "storage_bucket": "bringr-c710c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685583234612:android:688b604a6dcd0229f43c61",
+        "android_client_info": {
+          "package_name": "com.example.bringr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf2OOsWlKqYNAAzidldUDRYHCGxz9M-ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
