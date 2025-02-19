@@ -1,6 +1,6 @@
 import 'package:bringr/core/error/failure.dart';
 import 'package:bringr/core/usecase/usecase.dart';
-import 'package:bringr/feature/auth/domain/entities/user.dart';
+import 'package:bringr/core/common/entities/user.dart';
 import 'package:bringr/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 

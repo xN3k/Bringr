@@ -1,3 +1,4 @@
+import 'package:bringr/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:bringr/feature/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:bringr/feature/auth/data/repository/auth_repository_impl.dart';
 import 'package:bringr/feature/auth/domain/repository/auth_repository.dart';
@@ -22,6 +23,8 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerLazySingleton(() => FirebaseFirestore.instance);
   serviceLocator.registerLazySingleton(() => FirebaseAuth.instance);
+
+  serviceLocator.registerLazySingleton(() => AppUserCubit());
 }
 
 void _initAuth() {
@@ -39,7 +42,10 @@ void _initAuth() {
     ..registerFactory(() => UserSignIn(serviceLocator()))
     // bloc
     ..registerLazySingleton(
-      () =>
-          AuthBloc(userSignUp: serviceLocator(), userSignIn: serviceLocator()),
+      () => AuthBloc(
+        userSignUp: serviceLocator(),
+        userSignIn: serviceLocator(),
+        appUserCubit: serviceLocator(),
+      ),
     );
 }

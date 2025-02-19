@@ -1,4 +1,5 @@
-import 'package:bringr/feature/auth/domain/entities/user.dart';
+import 'package:bringr/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:bringr/core/common/entities/user.dart';
 import 'package:bringr/feature/auth/domain/usecases/user_sign_in.dart';
 import 'package:bringr/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,16 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignUp _userSignUp;
   final UserSignIn _userSignIn;
+  final AppUserCubit _appUserCubit;
 
-  AuthBloc({required UserSignUp userSignUp, required UserSignIn userSignIn})
-    : _userSignUp = userSignUp,
-      _userSignIn = userSignIn,
-      super(AuthInitial()) {
+  AuthBloc({
+    required UserSignUp userSignUp,
+    required UserSignIn userSignIn,
+    required AppUserCubit appUserCubit,
+  }) : _userSignUp = userSignUp,
+       _userSignIn = userSignIn,
+       _appUserCubit = appUserCubit,
+       super(AuthInitial()) {
     on<AuthEvent>((_, emit) => emit(AuthLoading()));
     on<AuthSignUp>(_onAuthSignUp);
     on<AuthSignIn>(_onAuthSignIn);
@@ -31,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (l) => emit(AuthFailure(l.message)),
-      (r) => emit(AuthSuccess(r)),
+      (r) => _emitAuthState(r, emit),
     );
   }
 
@@ -42,11 +48,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (l) => emit(AuthFailure(l.message)),
-      (r) {
-        print("Sign in successful");
-        emit(AuthSuccess(r));
-      },
+      (r) => _emitAuthState(r, emit),
       // (r) => emit(AuthSuccess(r)),
     );
+  }
+
+  void _emitAuthState(MyUser user, Emitter<AuthState> emit) {
+    _appUserCubit.updateUser(user);
+    emit(AuthSuccess(user));
   }
 }

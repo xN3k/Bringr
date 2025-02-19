@@ -1,7 +1,7 @@
 import 'package:bringr/core/error/exception.dart';
 import 'package:bringr/core/error/failure.dart';
 import 'package:bringr/feature/auth/data/datasource/auth_remote_data_source.dart';
-import 'package:bringr/feature/auth/domain/entities/user.dart';
+import 'package:bringr/core/common/entities/user.dart';
 import 'package:bringr/feature/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
