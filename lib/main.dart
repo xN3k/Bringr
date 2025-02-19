@@ -1,13 +1,19 @@
 import 'package:bringr/core/theme/theme.dart';
+import 'package:bringr/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:bringr/feature/auth/presentation/screens/sign_up_screen.dart';
-import 'package:bringr/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:bringr/init_dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  await initDependencies();
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => serviceLocator<AuthBloc>())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
