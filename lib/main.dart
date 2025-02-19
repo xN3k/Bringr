@@ -1,6 +1,6 @@
 import 'package:bringr/core/theme/theme.dart';
 import 'package:bringr/feature/auth/presentation/bloc/auth_bloc.dart';
-import 'package:bringr/feature/auth/presentation/screens/sign_up_screen.dart';
+import 'package:bringr/feature/auth/presentation/screens/sign_in_screen.dart';
 import 'package:bringr/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bringr',
       theme: AppTheme.lightThemeMode,
-      home: SignUpScreen(),
+      home: SignInScreen(),
     );
   }
 }

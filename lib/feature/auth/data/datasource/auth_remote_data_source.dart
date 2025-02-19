@@ -18,16 +18,28 @@ abstract interface class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth firebaseAuth;
-  final FirebaseFirestore firebaseFirestore;
+  final FirebaseFirestore firestore;
 
-  const AuthRemoteDataSourceImpl(this.firebaseAuth, this.firebaseFirestore);
+  const AuthRemoteDataSourceImpl(this.firebaseAuth, this.firestore);
   @override
   Future<UserModel> signInWithEmailAndPassword({
     required String email,
     required String password,
-  }) {
-    // TODO: implement signInWithEmailAndPassword
-    throw UnimplementedError();
+  }) async {
+    try {
+      final response = await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return UserModel(
+        id: response.user!.uid,
+        email: email,
+        name: response.user!.displayName ?? '',
+      );
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 
   @override
@@ -44,7 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw ServerException("User is null");
       }
 
-      await firebaseFirestore.collection('users').doc(response.user!.uid).set({
+      await firestore.collection('users').doc(response.user!.uid).set({
         'id': response.user!.uid,
         'name': name,
         'email': email,

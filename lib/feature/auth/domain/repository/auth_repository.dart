@@ -3,13 +3,13 @@ import 'package:bringr/feature/auth/domain/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepository {
-  Future<Either<Failure, User>> signUpWithEmailAndPassword({
+  Future<Either<Failure, MyUser>> signUpWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
   });
 
-  Future<Either<Failure, User>> signInWithEmailAndPassword({
+  Future<Either<Failure, MyUser>> signInWithEmailAndPassword({
     required String email,
     required String password,
   });

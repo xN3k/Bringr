@@ -10,16 +10,24 @@ class AuthRepositoryImpl implements AuthRepository {
 
   const AuthRepositoryImpl(this.remoteDataSource);
   @override
-  Future<Either<Failure, User>> signInWithEmailAndPassword({
+  Future<Either<Failure, MyUser>> signInWithEmailAndPassword({
     required String email,
     required String password,
-  }) {
-    // TODO: implement signInWithEmailAndPassword
-    throw UnimplementedError();
+  }) async {
+    try {
+      final userId = await remoteDataSource.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return right(userId);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
   }
 
   @override
-  Future<Either<Failure, User>> signUpWithEmailAndPassword({
+  Future<Either<Failure, MyUser>> signUpWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
