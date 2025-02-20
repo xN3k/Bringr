@@ -4,6 +4,7 @@ import 'package:bringr/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:bringr/feature/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -59,22 +60,25 @@ class _SignInScreenState extends State<SignInScreen> {
                       }
                     },
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Don't have an account? ",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ), // Add style here
-                      children: [
-                        TextSpan(
-                          text: "Sign Up",
-                          style: TextStyle(
-                            color: AppPalette.primaryColor,
-                            fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () => context.goNamed("sign_up"),
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Don't have an account? ",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ), // Add style here
+                        children: [
+                          TextSpan(
+                            text: "Sign Up",
+                            style: TextStyle(
+                              color: AppPalette.primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

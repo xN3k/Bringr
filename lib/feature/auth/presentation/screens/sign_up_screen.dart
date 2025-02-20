@@ -3,6 +3,7 @@ import 'package:bringr/feature/auth/presentation/widgets/auth_button.dart';
 import 'package:bringr/feature/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../bloc/auth_bloc.dart';
 
@@ -66,22 +67,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                         },
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: "Already have an account? ",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ), // Add style here
-                          children: [
-                            TextSpan(
-                              text: "Sign In",
-                              style: TextStyle(
-                                color: AppPalette.primaryColor,
-                                fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: () => context.goNamed("sign_in"),
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Already have an account? ",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                            ), // Add style here
+                            children: [
+                              TextSpan(
+                                text: "Sign In",
+                                style: TextStyle(
+                                  color: AppPalette.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
