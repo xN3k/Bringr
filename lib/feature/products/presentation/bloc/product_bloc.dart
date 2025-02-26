@@ -12,15 +12,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc({required GetProducts getProducts})
     : _getProducts = getProducts,
       super(ProductInitial()) {
+    on<ProductEvent>((_, emit) => ProductInitial());
     on<FetchProducts>(_onFetchProducts);
   }
 
   void _onFetchProducts(FetchProducts event, Emitter<ProductState> emit) async {
     final response = await _getProducts(NoParams());
 
-    response.fold(
-      (l) => emit(ProductFailure(l.message)),
-      (r) => emit(ProductSuccess(r)),
-    );
+    response.fold((l) {
+      emit(ProductFailure(l.message));
+      print(l.message);
+    }, (r) => emit(ProductSuccess(r)));
   }
 }

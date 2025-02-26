@@ -7,17 +7,24 @@ abstract interface class ProductsRemoteDataSource {
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
-  final productCollection = FirebaseFirestore.instance.collection('products');
+  // final productCollection = FirebaseFirestore.instance.collection('products');
+  final FirebaseFirestore firestore;
+  const ProductsRemoteDataSourceImpl(this.firestore);
 
   @override
   Future<List<ProductsModel>> getProducts() async {
     try {
-      return productCollection.get().then(
-        (value) =>
-            value.docs
-                .map((e) => ProductsModel.fromDocument(e.data()))
-                .toList(),
-      );
+      final product = await firestore
+          .collection('products')
+          .get()
+          .then(
+            (value) =>
+                value.docs
+                    .map((e) => ProductsModel.fromDocument(e.data()))
+                    .toList(),
+          );
+
+      return product;
     } catch (e) {
       throw ServerException(e.toString());
     }
